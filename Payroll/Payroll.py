@@ -56,15 +56,25 @@ Select the corrosponding value to view:
 
 #Adding new employee
     elif choice == 2:
-        print("\n----- Add an employee -----")
-        new_emp_name = input("Enter the employee name: ")
-        new_emp_base = int(input(f"Enter {new_emp_name} base salary: "))
+        pick = int(input("\nWould you like to 1. add or 2. remove an employee? Enter the Index: "))
+        if pick == 1:
+            print("\n----- Add an employee -----")
+            new_emp_name = input("Enter the employee name: ")
+            new_emp_base = int(input(f"Enter {new_emp_name} base salary: "))
 #New employee
-        new_employee = Employee(new_emp_name, new_emp_base, {})
-        employee_list.append(new_employee)
-        print(f"\n{new_emp_name} has been added to the system")
-        exit = input("\nPress any key to continue: ")
-
+            new_employee = Employee(new_emp_name, new_emp_base, {})
+            employee_list.append(new_employee)
+            print(f"\n{new_emp_name} has been added to the system")
+            exit = input("\nPress any key to continue: ")
+#Remove employee        
+        elif pick == 2:
+            print("\n----- Employee List -----")
+            for index, emp in enumerate(employee_list):
+                print(f"{index}. {emp.name}")
+            emp_index = int(input("\nEnter the Index: "))
+            emp_name = employee_list[emp_index]
+            employee_list.pop(emp_index)
+            print(f"\n{emp_name} has been removed from the system")
 #Adding Overtime task
     elif choice == 3:
         print("\n----- Adding employee OT -----")
