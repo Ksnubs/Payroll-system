@@ -65,3 +65,11 @@ Select the corrosponding value to view:
         employee_list.append(new_emp)
         print(f"\n{new_emp_name} has been added to the system")
         exit = input("Press any key to continue: ")
+
+#Adding Overtime task
+    elif choice == 3:
+        print("\n----- Adding employee OT -----")
+        for index, emp in enumerate(employee_list):
+            name = emp["name"]
+            print(f"{index + 1}: {name}")
+        exit = input("To continue press any key: ")
