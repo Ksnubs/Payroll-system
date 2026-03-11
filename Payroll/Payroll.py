@@ -2,11 +2,9 @@
 
 #Employee List
 employee_list = [
-{
-    "name" : "Jia Jing",
+    {"name" : "Jia Jing",
     "base" : 2000,
-    "task" : {}
-}
+    "task" : {}}
 ]
 
 #Overtime rates
@@ -50,9 +48,20 @@ Select the corrosponding value to view:
     elif choice == 1:
         print("\n----- Employee List -----")
         for emp in employee_list:
+            print("-" * 25)
             for key, value in emp.items():
                 print(f"{key} | {value}")
         exit = input("Press any key to continue: ")
-    
+
+#Adding new employee
     elif choice == 2:
-        pass
+        print("\n----- Add an employee -----")
+        new_emp_name = input("Enter the employee name: ")
+        new_emp_base = int(input(f"Enter {new_emp_name} base salary: "))
+#New employee
+        new_emp = {"name" : new_emp_name,
+                   "base" : new_emp_base,
+                   "task" : {} }
+        employee_list.append(new_emp)
+        print(f"\n{new_emp_name} has been added to the system")
+        exit = input("Press any key to continue: ")
