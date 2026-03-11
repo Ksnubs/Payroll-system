@@ -17,7 +17,7 @@ class Employee:
         total_pay = self.base
 
         for task_name, count in self.task.items():
-            task_rate = ot_rates.get(task_name, 0)
+            task_rate = task_rates.get(task_name, 0)
             total_pay += ( task_rate * count )
         
         return(total_pay)
