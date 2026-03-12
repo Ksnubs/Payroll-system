@@ -29,19 +29,19 @@ def pause():
 employee_list = [
     Employee("Jia Jing", 3000, {})
 ]
+print("-" * 5, "Welcome to BH Employee Payroll system", "-" * 5)
 #Program
 while True:
 
 #Main user interface
-    print("-" * 5, "Welcome to BH Employee Payroll system", "-" * 5)
-    print(f"""
-Select the corrosponding value to view:
+    print("-" * 30)
+    print(f"""Select the corrosponding value to view:
 0. Exit the system
 1. Current employees
 2. Add / Remove an employee
 3. Overtime matters
-4. Total Salary
-""")
+4. Total Salary""")
+    
 #User inputs in menu
     choice = int(input("Enter the corrosponding Index: "))
 
@@ -78,6 +78,7 @@ Select the corrosponding value to view:
             emp_name = employee_list[emp_index].name
             employee_list.pop(emp_index)
             print(f"\n{emp_name} has been removed from the system")
+            pause()
 #Adding Overtime task
     elif choice == 3:
         print("\n----- Adding employee OT -----")
@@ -96,6 +97,7 @@ Select the corrosponding value to view:
         amount = int(input("Enter amount: "))
 #Adding to OT task to dictionary
         employee_list[emp_index].task[task_key] = amount
+        pause()
 
 #Calculate total salary
     elif choice == 4: 
