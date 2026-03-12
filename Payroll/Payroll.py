@@ -22,6 +22,9 @@ class Employee:
         
         return(total_pay)
 
+def pause():
+    input("Press any key to continue: ")
+
 #Employee List
 employee_list = [
     Employee("Jia Jing", 3000, {})
@@ -34,9 +37,10 @@ while True:
     print(f"""
 Select the corrosponding value to view:
 0. Exit the system
-1. View current employees
+1. Current employees
 2. Add / Remove an employee
 3. Overtime matters
+4. Total Salary
 """)
 #User inputs in menu
     choice = int(input("Enter the corrosponding Index: "))
@@ -51,8 +55,7 @@ Select the corrosponding value to view:
             print(f"Base Salary: {emp.base}")
             print(f"Tasks: {emp.task}")
             print("-" * 10)
-
-        exit = input("\nPress any key to continue: ")
+        pause()
 
 #Adding new employee
     elif choice == 2:
@@ -61,18 +64,18 @@ Select the corrosponding value to view:
             print("\n----- Add an employee -----")
             new_emp_name = input("Enter the employee name: ")
             new_emp_base = int(input(f"Enter {new_emp_name} base salary: "))
-#New employee
+#Add employee
             new_employee = Employee(new_emp_name, new_emp_base, {})
             employee_list.append(new_employee)
             print(f"\n{new_emp_name} has been added to the system")
-            exit = input("\nPress any key to continue: ")
+            pause()
 #Remove employee        
         elif pick == 2:
             print("\n----- Employee List -----")
             for index, emp in enumerate(employee_list):
                 print(f"{index}. {emp.name}")
             emp_index = int(input("\nEnter the Index: "))
-            emp_name = employee_list[emp_index]
+            emp_name = employee_list[emp_index].name
             employee_list.pop(emp_index)
             print(f"\n{emp_name} has been removed from the system")
 #Adding Overtime task
@@ -93,3 +96,13 @@ Select the corrosponding value to view:
         amount = int(input("Enter amount: "))
 #Adding to OT task to dictionary
         employee_list[emp_index].task[task_key] = amount
+
+#Calculate total salary
+    elif choice == 4: 
+        print("\n----- Total Pay -----")
+        for emp in employee_list:
+            name = emp.name
+            total_pay = emp.calculate_pay(ot_rates)
+            print(f"{name}: {total_pay}")
+            print("-----")
+        pause()
