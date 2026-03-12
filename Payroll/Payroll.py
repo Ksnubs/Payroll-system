@@ -46,6 +46,8 @@ while True:
     choice = int(input("Enter the corrosponding Index: "))
 
     if choice == 0:
+        print("Closing the System. Thank you")
+        pause()
         break
     
     elif choice == 1:
