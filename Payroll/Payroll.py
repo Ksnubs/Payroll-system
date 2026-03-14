@@ -4,6 +4,24 @@ ot_rates = {
     "delivery" : 20,
     "light sauce" : 2
 }
+#Function to ask for input
+def get_user_input():
+    while True:
+        try:
+            choice = int(input("\nEnter a Index: "))
+            break
+        except(ValueError):
+            print("Please enter a valid Index")
+    return(choice)
+
+def pause():
+    input("Press any key to continue: ")
+
+def line_break(num):
+    print("-" * num)
+
+def title(title, num):
+    print("-" * num,f" {title} ", "-" * num)
 
 #Employee class
 class Employee:
@@ -22,28 +40,25 @@ class Employee:
         
         return(total_pay)
 
-def pause():
-    input("Press any key to continue: ")
-
 #Employee List
 employee_list = [
     Employee("Jia Jing", 3000, {})
 ]
-print("-" * 5, "Welcome to BH Employee Payroll system", "-" * 5)
+#Welcome title
+title("Welcome to BH HR system", 11)
 #Program
 while True:
-
 #Main user interface
-    print("-" * 30)
-    print(f"""Select the corrosponding value to view:
-0. Exit the system
-1. Current employees
-2. Add / Remove an employee
-3. Overtime matters
-4. Total Salary""")
+    line_break(49)
+    print("Select the option you want by pressing the Index")
+    print("0. Exit the system")
+    print("1. Current Employee List")
+    print("2. Edit Current Employee List")
+    print("3. Overtime Matters")
+    print("4. Salaries")
     
 #User inputs in menu
-    choice = int(input("Enter the corrosponding Index: "))
+    choice = get_user_input()
 
     if choice == 0:
         print("Closing the System. Thank you")
@@ -51,7 +66,7 @@ while True:
         break
     
     elif choice == 1:
-        print("\n----- Employee List -----")
+        title("Employee list", 10)
         for emp in employee_list:
             print(f"Name: {emp.name}")
             print(f"Base Salary: {emp.base}")
@@ -61,9 +76,12 @@ while True:
 
 #Adding new employee
     elif choice == 2:
-        pick = int(input("\nWould you like to 1. add or 2. remove an employee? Enter the Index: "))
+        title("Choose an option", 10)
+        print("1. Add an Employee")
+        print("2. Remove an Employee")
+        pick = get_user_input()
         if pick == 1:
-            print("\n----- Add an employee -----")
+            title("Add Employee", 15)
             new_emp_name = input("Enter the employee name: ")
             new_emp_base = int(input(f"Enter {new_emp_name} base salary: "))
 #Add employee
@@ -73,7 +91,7 @@ while True:
             pause()
 #Remove employee        
         elif pick == 2:
-            print("\n----- Employee List -----")
+            title("Remove Employee", 10)
             for index, emp in enumerate(employee_list):
                 print(f"{index}. {emp.name}")
             emp_index = int(input("\nEnter the Index: "))
@@ -83,7 +101,7 @@ while True:
             pause()
 #Adding Overtime task
     elif choice == 3:
-        print("\n----- Adding employee OT -----")
+        title("Add an OT", 15)
         for index, emp in enumerate(employee_list):
             name = emp.name
             print(f"{index}: {name}")
