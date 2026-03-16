@@ -27,6 +27,14 @@ def title(title):
 def exit():
     input("Press any key to continue: ")
 
+def input_int(question):
+    while True:
+        try:
+            num = int(input(question))
+            break
+        except (ValueError):
+            print("Please enter a value!")
+            
 #logic for the Manage system menu
 def manage_staff():
     while True:
@@ -83,10 +91,11 @@ employee_list = []
     
 
 #WELCOME TITLE
-title("Welcome to Beluga HR system")
+title("Welcome to Beluga-MAMA HR system")
 
 #Program loop
 while True:
+    title("MAIN MENU")
     print("\nPlease select the action you want to access.")
     print("0. Close the System.")
     print("1. Manage Staff.")
