@@ -102,7 +102,7 @@ def manage_overtime_details():
             task_name = input("Enter name of new task: ")
             task_rate = input_float("Enter rate of new task: ")
             overtime_rates[task_name] = task_rate
-            print(f"{task_name} has been successfully added to the system.")
+            print(f"{task_name} has been successfully added to the system!")
             exit()
 
         elif option == 2:
@@ -121,11 +121,19 @@ def manage_overtime_details():
                 exit()
         elif option == 3:
             title("Edit Overtime Rates.")
-            overtime_task = overtime_rates.keys()
+            overtime_task = list(overtime_rates.keys())
             num_overtime_task = len(overtime_task)
             for index, task in enumerate(overtime_task):
                 print(f"{index}. {task}")
             choice = navigation(0,num_overtime_task)
+            choice_name = overtime_task[choice]
+            new_rate = float(input(f"Enter new rate for {choice_name}: "))
+            overtime_rates[choice_name] = new_rate
+            print(f"{choice_name} has been successfully updated.")
+            exit()
+        elif option == 4:
+            #view the current OT task
+            pass
              
 #Employee Class for employees
 class Employee:
