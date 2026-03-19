@@ -79,6 +79,12 @@ def manage_staff():
             print(f"\n{name} has been removed from the system.")
             exit()
 
+def print_employee_list(employee_list):
+    for item in employee_list:
+        print(f"Name: {item.name}")
+        print(f"Base Salary: {item.base_pay}")
+        print
+
 #Logic for the Manage Overtime Details Menu 
 # Add overtime task
 # remove overtime task
