@@ -1,7 +1,10 @@
 #Second version of Payroll System
-#Functions
+#List of employees working stored as objects
+employee_list = []
+overtime_rates = {}
+
 #Get user's int inputs with limits to the range of the allowed inputs for navigation of the system
-def navigation(min, max):
+def get_menu_choice(min, max):
     while True:
         try:
             entry = int(input("\nEnter an Index: "))
@@ -25,11 +28,11 @@ def title(title):
         print("-" * sideline, f" {title} ", "-" * (sideline + 1))
 
 #Confrim user is done viewing the data
-def exit():
+def pause_screen():
     input("Press any key to continue: ")
 
 #Takes users float inputs 
-def input_float(question):
+def get_input_float(question):
     while True:
         try:
             num = float(input(question))
@@ -47,43 +50,57 @@ def manage_staff():
         print("2. Add an Employee.")
         print("3. Remove an Employee.")
     
-        option = navigation(0, 3)
+        option = get_menu_choice(0, 3)
         if option == 0:
             break
         elif option == 1:
-            title("Employee List")
-            for emp in employee_list:
-                print(f"Name: {emp.name}")
-                print(f"Base Salary: {emp.base_pay}")
-                print(f"OT Worked: {emp.task}")
-                print("-" * 30)
-            exit()
+            print_employee_list()
         elif option == 2:
-            title("Adding Employee")
-            name = input("Enter New Employee's Name: ")
-            base_salary = input_float("Enter New Employee's base salary: ")
-            new_emp = Employee(name, base_salary, {})
-            employee_list.append(new_emp)
-            print(f"{name} has been added to the system.")
-            exit()
+            add_employees()
         elif option == 3:
-            title("Removing Employee")
-            print("Enter the Employee's Index of the Employee you want to remove.")
-            for index, name in enumerate(employee_list):
-                print(f"{index}. {name.name}")
-            num_of_emp = len(employee_list)
-            index_remove = navigation(0, num_of_emp)
-            name = employee_list[index_remove].name
-            employee_list.pop(index_remove)
-            print("-" * 30)
-            print(f"\n{name} has been removed from the system.")
-            exit()
+            remove_employee()
 
-def print_employee_list(employee_list):
+#prints the particulars of all employees
+def print_employee_list():
+    title("\nList of Employees")
     for item in employee_list:
-        print(f"Name: {item.name}")
+        print(f"Name: {item.name.title()}")
         print(f"Base Salary: {item.base_pay}")
-        print
+        print(f"OT Task completed: {item.task}")
+        print("-" * 30)
+    pause_screen()
+
+#adds employee to the system
+def add_employees():
+    title("Add Employees")
+    name = input("Enter New Employee's Name: ")
+    base_pay = input("Enter New Employee's base salary: ")
+    new_employee = Employee(name.lower(), base_pay, {})
+    employee_list.append(new_employee)
+    print(f"{name.title()} has been added to the system.")
+    pause_screen()
+
+#remove employee from the system
+def remove_employee():
+    if not employee_list:
+        print("\nThere are no emplyees!")
+        pause_screen()
+    else:
+        title("Remove Employee")
+        for index, emp_name in enumerate(employee_list):
+            emp_name = emp_name.name.title()
+            print(f"{index + 1}. {emp_name}")
+        employee_num = len(employee_list)
+        choice = get_menu_choice(0, employee_num)
+        index_employee_removed = int(choice - 1)
+        if choice == 0:
+            pass
+        else:
+            emp_name = employee_list[index_employee_removed].name
+            employee_list.pop(index_employee_removed)
+            print(f"{emp_name} has been removed from the system.")
+            pause_screen()
+
 
 #Logic for the Manage Overtime Details Menu 
 # Add overtime task
@@ -97,19 +114,17 @@ def manage_overtime_details():
         print("2. Remove Overtime Task.")
         print("3. Edit Overtime Rates.")
 
-        option = navigation(0, 3)
+        option = get_menu_choice(0, 3)
         
         if option == 0:
-            print("Returning to Main Menu....")
-            exit()
             break
         elif option == 1:
             title("Add Overtime Task")
             task_name = input("Enter name of new task: ")
-            task_rate = input_float("Enter rate of new task: ")
+            task_rate = get_input_float("Enter rate of new task: ")
             overtime_rates[task_name] = task_rate
             print(f"{task_name} has been successfully added to the system!")
-            exit()
+            pause_screen()
 
         elif option == 2:
             title("Remove Overtime Task")
@@ -120,23 +135,23 @@ def manage_overtime_details():
             else:
                 for index, task in enumerate(overtime_task):
                     print(f"{index}. {task}")
-                choice = navigation(0, num_overtime_task - 1)
+                choice = get_menu_choice(0, num_overtime_task - 1)
                 task_removed = overtime_task[choice]
                 overtime_rates.pop(task_removed)
                 print(f"{task_removed} has been removed.")
-                exit()
+                pause_screen()
         elif option == 3:
             title("Edit Overtime Rates.")
             overtime_task = list(overtime_rates.keys())
             num_overtime_task = len(overtime_task)
             for index, task in enumerate(overtime_task):
                 print(f"{index}. {task}")
-            choice = navigation(0,num_overtime_task)
+            choice = get_menu_choice(0,num_overtime_task)
             choice_name = overtime_task[choice]
             new_rate = float(input(f"Enter new rate for {choice_name}: "))
             overtime_rates[choice_name] = new_rate
             print(f"{choice_name} has been successfully updated.")
-            exit()
+            pause_screen()
         elif option == 4:
             #view the current OT task
             pass
@@ -147,10 +162,6 @@ class Employee:
         self.name = name
         self.base_pay = base_pay
         self.task = task
-
-#List of employees working stored as objects
-employee_list = []
-overtime_rates = {}
 
 #WELCOME TITLE
 title("Welcome to Beluga-MAMA HR system")
@@ -164,11 +175,11 @@ while True:
     print("2. Manage Overtime Details.")
     print("3. Edit Overtime Worked.")
 #Input for users choice
-    choice = navigation(0, 3)
+    choice = get_menu_choice(0, 3)
 
     if choice == 0:
         title("Closing the System...")
-        exit()
+        pause_screen()
         break
 
     elif choice == 1:
