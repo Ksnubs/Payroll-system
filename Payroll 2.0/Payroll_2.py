@@ -119,27 +119,11 @@ def manage_overtime_details():
         if option == 0:
             break
         elif option == 1:
-            title("Add Overtime Task")
-            task_name = input("Enter name of new task: ")
-            task_rate = get_input_float("Enter rate of new task: ")
-            overtime_rates[task_name] = task_rate
-            print(f"{task_name} has been successfully added to the system!")
-            pause_screen()
+           add_overtime_task()
 
         elif option == 2:
-            title("Remove Overtime Task")
-            overtime_task = list(overtime_rates.keys())
-            num_overtime_task = len(overtime_task)
-            if num_overtime_task == 0:
-                print("There are no OVERTIME TASKS.")
-            else:
-                for index, task in enumerate(overtime_task):
-                    print(f"{index}. {task}")
-                choice = get_menu_choice(0, num_overtime_task - 1)
-                task_removed = overtime_task[choice]
-                overtime_rates.pop(task_removed)
-                print(f"{task_removed} has been removed.")
-                pause_screen()
+            remove_overtime_task()
+
         elif option == 3:
             title("Edit Overtime Rates.")
             overtime_task = list(overtime_rates.keys())
@@ -155,7 +139,37 @@ def manage_overtime_details():
         elif option == 4:
             #view the current OT task
             pass
-             
+
+def add_overtime_task():
+    title("Add Overtime Task")
+    task_name = input("Enter new task name: ")
+    task_rate = get_input_float("Enter new task rate: ")
+    overtime_rates[task_name] = task_rate
+    print(f"{task_name} has been successfully added to the system.")
+    pause_screen()
+
+def remove_overtime_task():
+    title("Remove Overtime Task.")
+    task_names = list(overtime_rates.keys())
+    task_num = len(task_names)
+    if not task_num:
+        print("\nThere are no task in the system!")
+        pause_screen()
+    else:
+        for index, task_name in enumerate(task_names):
+            print(f"{index + 1}. {task_name}")
+        print("Enter the index of the task you want removed or 0 to exit.")
+        choice = get_menu_choice(0, task_num)
+        task_remove_index = choice - 1 
+        if choice == 0:
+            pass
+        else:
+            task_remove = task_names[index]
+            overtime_rates.pop(task_remove)
+            print(f"{task_remove} has been removed from the system.")
+            pause_screen()
+
+
 #Employee Class for employees
 class Employee:
     def __init__(self, name, base_pay, task):
