@@ -103,9 +103,6 @@ def remove_employee():
 
 
 #Logic for the Manage Overtime Details Menu 
-# Add overtime task
-# remove overtime task
-# edit overtime pay 
 def manage_overtime_details():
     while True:
         title("Manage Overtime Details")
@@ -125,17 +122,8 @@ def manage_overtime_details():
             remove_overtime_task()
 
         elif option == 3:
-            title("Edit Overtime Rates.")
-            overtime_task = list(overtime_rates.keys())
-            num_overtime_task = len(overtime_task)
-            for index, task in enumerate(overtime_task):
-                print(f"{index}. {task}")
-            choice = get_menu_choice(0,num_overtime_task)
-            choice_name = overtime_task[choice]
-            new_rate = float(input(f"Enter new rate for {choice_name}: "))
-            overtime_rates[choice_name] = new_rate
-            print(f"{choice_name} has been successfully updated.")
-            pause_screen()
+            edit_overtime_rates()
+
         elif option == 4:
             #view the current OT task
             pass
@@ -150,13 +138,13 @@ def add_overtime_task():
 
 def remove_overtime_task():
     title("Remove Overtime Task.")
-    task_names = list(overtime_rates.keys())
-    task_num = len(task_names)
+    overtime_task_names = list(overtime_rates.keys())
+    task_num = len(overtime_task_names)
     if not task_num:
         print("\nThere are no task in the system!")
         pause_screen()
     else:
-        for index, task_name in enumerate(task_names):
+        for index, task_name in enumerate(overtime_task_names):
             print(f"{index + 1}. {task_name}")
         print("Enter the index of the task you want removed or 0 to exit.")
         choice = get_menu_choice(0, task_num)
@@ -164,11 +152,27 @@ def remove_overtime_task():
         if choice == 0:
             pass
         else:
-            task_remove = task_names[index]
+            task_remove = overtime_task_names[task_remove_index]
             overtime_rates.pop(task_remove)
             print(f"{task_remove} has been removed from the system.")
             pause_screen()
 
+def edit_overtime_rates():
+    title("Edit Overtime Rates")
+    overtime_task_names = list(overtime_rates.keys())
+    for index, task_names in enumerate(overtime_task_names):
+        print(f"{index + 1}. {task_names}")
+    print("Enter the index of the OT task you want to edit or 0 to exit.")
+    option = get_menu_choice(0, len(overtime_task_names))
+    if option == 0:
+        pass
+    else:
+        task_name = overtime_task_names[option - 1]
+        new_rate = get_input_float(f"Enter new rate for {task_name}: ")
+        overtime_rates[task_name] = new_rate
+        print(f"{task_name} rate has been changed to {new_rate}")
+        pause_screen()
+    
 
 #Employee Class for employees
 class Employee:
@@ -179,6 +183,13 @@ class Employee:
 
 #WELCOME TITLE
 title("Welcome to Beluga-MAMA HR system")
+
+
+#temp information
+employee_list.append(Employee('jiajing', 3000, {}))
+employee_list.append(Employee('maode', 4000, {}))
+overtime_rates["delivery"] = 20
+
 
 #Program loop
 while True:
