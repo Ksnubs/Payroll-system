@@ -101,32 +101,41 @@ def remove_employee():
             print(f"{emp_name} has been removed from the system.")
             pause_screen()
 
-
 #Logic for the Manage Overtime Details Menu 
 def manage_overtime_details():
     while True:
         title("Manage Overtime Details")
         print("0. Main Menu.")
-        print("1. Add Overtime Task.")
-        print("2. Remove Overtime Task.")
-        print("3. Edit Overtime Rates.")
+        print("1. View current list of OT Task.")
+        print("2. Add Overtime Task.")
+        print("3. Remove Overtime Task.")
+        print("4. Edit Overtime Rates.")
 
         option = get_menu_choice(0, 3)
         
         if option == 0:
             break
         elif option == 1:
-           add_overtime_task()
+            view_overtime_task()
 
         elif option == 2:
-            remove_overtime_task()
+            add_overtime_task()
 
         elif option == 3:
-            edit_overtime_rates()
+            remove_overtime_task()
 
         elif option == 4:
-            #view the current OT task
-            pass
+            edit_overtime_rates()
+
+def view_overtime_task():
+    title("List of Overtime Task")
+    if not overtime_rates:
+        print("There are currently no overtime Task added.")
+    else:
+        print("Task Name\tRate")
+        for name, rate in overtime_rates.items():
+            print(f"{name}: \t{rate}")
+    pause_screen()
 
 def add_overtime_task():
     title("Add Overtime Task")
@@ -174,6 +183,7 @@ def edit_overtime_rates():
         pause_screen()
     
 
+
 #Employee Class for employees
 class Employee:
     def __init__(self, name, base_pay, task):
@@ -198,7 +208,8 @@ while True:
     print("0. Close the System.")
     print("1. Manage Staff.")
     print("2. Manage Overtime Details.")
-    print("3. Edit Overtime Worked.")
+    print("3. Edit Employee's Overtime.")
+
 #Input for users choice
     choice = get_menu_choice(0, 3)
 
